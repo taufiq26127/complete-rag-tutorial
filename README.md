@@ -33,7 +33,7 @@ flowchart TD
 	A[Siapkan environment] --> B[Siapkan dokumen di docs/]
 	B --> C[Ingestion pipeline]
 	C --> D[Chunking teks]
-    D --> E[CharacterTextSplitter]
+    D --> Z[CharacterTextSplitter]
 	D --> E[Embedding ke ChromaDB]
 	E --> F[Retrieval pipeline]
 	F --> G[Ambil context relevan]
@@ -44,7 +44,7 @@ flowchart TD
 	K --> L[Agentic chunking]
 	F --> M[Explorasi retrieval methods]
 	M --> N[Multi-query retrieval]
-	N --> O[Reciprocal rank fusion]
+	N --> O[Reciprocal Rank Fusion]
 	O --> P[Hybrid search]
 	P --> Q[Reranker]
 ```
@@ -61,11 +61,9 @@ Urutan belajar yang disarankan:
 
 ## Cara Menjalankan
 
-1. Aktifkan virtual environment yang tersedia di folder `venv_rag_tutorial/`.
-2. Pastikan file `.env` berisi credential yang dibutuhkan oleh model atau provider yang dipakai.
-3. Masukkan dokumen `.txt` ke folder `docs/`.
-4. Jalankan pipeline ingestion terlebih dahulu.
-5. Setelah vector store terbentuk di `db/chroma_db/`, jalankan script retrieval dan generation.
+1. Masukkan dokumen `.txt` ke folder `docs/`.
+2. Jalankan pipeline ingestion terlebih dahulu.
+3. Setelah vector store terbentuk di `db/chroma_db/`, jalankan script retrieval dan generation.
 
 Contoh:
 
