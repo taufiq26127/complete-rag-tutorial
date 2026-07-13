@@ -34,7 +34,7 @@ flowchart TD
 	B --> C[Ingestion pipeline]
 	C --> D[Chunking teks]
     D --> Z[CharacterTextSplitter]
-	D --> E[Embedding ke ChromaDB]
+	Z --> E[Embedding ke ChromaDB]
 	E --> F[Retrieval pipeline]
 	F --> G[Ambil context relevan]
 	G --> H[Answer generation]
