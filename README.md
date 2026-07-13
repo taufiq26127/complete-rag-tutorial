@@ -1,65 +1,92 @@
-# Complete RAG Tutorial
+# RAG Tutorial
 
-<p align="center">
-	<img alt="RAG Tutorial" src="https://img.shields.io/badge/RAG-Tutorial-0F766E?style=for-the-badge" />
-	<img alt="Python" src="https://img.shields.io/badge/Python-Notebook-1D4ED8?style=for-the-badge" />
-	<img alt="LangChain" src="https://img.shields.io/badge/LangChain-Vector%20Search-111827?style=for-the-badge" />
-</p>
+Kumpulan materi belajar Retrieval-Augmented Generation (RAG) dari dasar sampai teknik retrieval yang lebih lanjut. Repositori ini berisi script, notebook, dan data contoh untuk memahami alur lengkap: ingest dokumen, membangun vector store, melakukan retrieval, lalu menghasilkan jawaban.
 
-<p align="center">
-	Panduan praktik untuk mempelajari Retrieval Augmented Generation dari ingestion, retrieval, answer generation, history-aware retrieval, hingga variasi metode retrieval.
-</p>
+## Tujuan Proyek
 
----
-
-## Ringkasan
-
-Repository ini berisi rangkaian notebook Python untuk membangun alur RAG secara bertahap. Struktur project dibuat agar mudah diikuti, mulai dari memecah dokumen, menyimpan embedding ke vector database, melakukan pencarian, lalu menggabungkannya dengan model bahasa untuk menghasilkan jawaban.
-
-## Alur Belajar
-
-```mermaid
-flowchart LR
-	A[Dokumen di docs/] --> B[Ingestion Pipeline]
-	B --> C[Vector Store Chroma]
-	C --> D[Retrieval Pipeline]
-	D --> E[Answer Generation]
-	E --> F[History Aware Generation]
-	D --> G[Retrieval Methods]
-	A --> H[Recursive Text Splitter]
-```
-
-## Isi Notebook
-
-| Notebook                           | Fokus                                                                 |
-| ---------------------------------- | --------------------------------------------------------------------- |
-| `1_ingestion_pipeline.ipynb`       | Menyiapkan dokumen, memproses data, dan membangun pipeline ingestion. |
-| `2_retrieval-pipeline.ipynb`       | Mencari konteks relevan dari vector database.                         |
-| `3_answer_generation.ipynb`        | Menggabungkan konteks hasil retrieval dengan LLM untuk jawaban akhir. |
-| `4_history_aware_generation.ipynb` | Membuat jawaban yang mempertimbangkan riwayat percakapan.             |
-| `5_recursite-text-splitter.ipynb`  | Eksperimen pemecahan teks, termasuk `RecursiveCharacterTextSplitter`. |
-| `9_retrieval-methods.ipynb`        | Membandingkan beberapa pendekatan retrieval.                          |
+- Memahami alur kerja RAG secara bertahap.
+- Mencoba berbagai strategi chunking, retrieval, dan ranking.
+- Melatih eksperimen dengan dataset teks lokal yang disimpan di folder `docs/`.
+- Menjadi referensi belajar yang bisa dijalankan satu per satu.
 
 ## Struktur Folder
 
-| Path            | Isi                                                                           |
-| --------------- | ----------------------------------------------------------------------------- |
-| `docs/`         | Kumpulan dokumen sumber seperti Google, Microsoft, Nvidia, SpaceX, dan Tesla. |
-| `db/chroma_db/` | Penyimpanan vector database Chroma untuk hasil embedding.                     |
-| `README.md`     | Ringkasan project dan panduan navigasi notebook.                              |
+- `1_ingestion_pipeline.py` - load dokumen, split teks, dan simpan embedding ke ChromaDB.
+- `2_retrieval_pipeline.py` - melakukan pencarian context dari vector store.
+- `3_answer_generate.py` - menggabungkan retrieval dengan model LLM untuk membuat jawaban.
+- `4_history_aware_generation.py` - generasi jawaban yang mempertimbangkan percakapan sebelumnya.
+- `5_recursive_text_splitter.py` - eksplorasi teknik recursive text splitting.
+- `6_semantic_chunking.py` / `6_semantic_chunking.ipynb` - chunking berbasis makna.
+- `7_agentic_chunking.ipynb` - eksplorasi chunking dengan pendekatan agentic.
+- `9_retrieval_methods.py` - perbandingan metode retrieval.
+- `10_multi_query_retrieval.py` / `10_multi_query_retrieval.ipynb` - multi-query retrieval.
+- `11_repricol_rank_fusion.py` / `11_repricocal_rank_fusion.ipynb` - reciprocal rank fusion.
+- `12_hybrid_search.ipynb` - hybrid search.
+- `13_reranker.ipynb` - reranking hasil retrieval.
+- `docs/` - dokumen sumber untuk diindeks.
+- `db/chroma_db/` - penyimpanan vector database Chroma.
 
-## Cara Menggunakan
+## Workflow Belajar
 
-1. Buka notebook sesuai urutan belajar yang ingin diikuti.
-2. Mulai dari `1_ingestion_pipeline.ipynb` untuk memahami bagaimana data masuk ke sistem.
-3. Lanjutkan ke notebook retrieval dan answer generation untuk melihat alur RAG end-to-end.
-4. Gunakan notebook eksperimen untuk membandingkan strategi split text dan retrieval.
+```mermaid
+flowchart TD
+	A[Siapkan environment] --> B[Siapkan dokumen di docs/]
+	B --> C[Ingestion pipeline]
+	C --> D[Chunking teks]
+    D --> E[CharacterTextSplitter]
+	D --> E[Embedding ke ChromaDB]
+	E --> F[Retrieval pipeline]
+	F --> G[Ambil context relevan]
+	G --> H[Answer generation]
+	H --> I[History aware generation]
+	D --> J[Recursive text splitter]
+	D --> K[Semantic chunking]
+	K --> L[Agentic chunking]
+	F --> M[Explorasi retrieval methods]
+	M --> N[Multi-query retrieval]
+	N --> O[Reciprocal rank fusion]
+	O --> P[Hybrid search]
+	P --> Q[Reranker]
+```
 
-## Dataset dan Storage
+Urutan belajar yang disarankan:
 
-Project ini menggunakan dokumen contoh yang sudah tersedia di folder `docs/` dan vector store lokal di `db/chroma_db/`. Dengan struktur ini, notebook dapat dijalankan tanpa perlu menyiapkan sumber data dari awal.
+1. Pahami dulu konsep RAG: dokumen -> embedding -> retrieval -> jawaban.
+2. Jalankan `1_ingestion_pipeline.py` untuk melihat bagaimana dokumen dimuat, dipecah, lalu disimpan ke ChromaDB.
+3. Jalankan `2_retrieval_pipeline.py` untuk memahami bagaimana query mencari context yang relevan.
+4. Jalankan `3_answer_generate.py` untuk melihat bagaimana context dipakai model dalam menghasilkan jawaban.
+5. Lanjut ke `4_history_aware_generation.py` agar paham percakapan multi-turn.
+6. Pelajari variasi chunking lewat `5_recursive_text_splitter.py`, `6_semantic_chunking.py`, dan `7_agentic_chunking.ipynb`.
+7. Bandingkan teknik retrieval lanjutan lewat `9_retrieval_methods.py`, `10_multi_query_retrieval.py`, `11_repricol_rank_fusion.py`, `12_hybrid_search.ipynb`, dan `13_reranker.ipynb`.
 
-## Catatan
+## Cara Menjalankan
 
-- Notebook belum semuanya dieksekusi, jadi beberapa output mungkin masih kosong sampai dijalankan.
-- Jika ingin memperluas tutorial, folder `docs/` bisa ditambah dengan sumber dokumen lain untuk eksperimen retrieval yang lebih kaya.
+1. Aktifkan virtual environment yang tersedia di folder `venv_rag_tutorial/`.
+2. Pastikan file `.env` berisi credential yang dibutuhkan oleh model atau provider yang dipakai.
+3. Masukkan dokumen `.txt` ke folder `docs/`.
+4. Jalankan pipeline ingestion terlebih dahulu.
+5. Setelah vector store terbentuk di `db/chroma_db/`, jalankan script retrieval dan generation.
+
+Contoh:
+
+```bash
+python 1_ingestion_pipeline.py
+python 2_retrieval_pipeline.py
+python 3_answer_generate.py
+```
+
+## Catatan Data
+
+- Dataset contoh berupa file `.txt` di folder `docs/`.
+- Vector store Chroma tersimpan lokal di `db/chroma_db/`.
+- Jika ingin eksperimen ulang, hapus atau ganti isi dokumen lalu jalankan ulang ingestion.
+
+## Pengembangan Lanjutan
+
+Jika ingin memperluas proyek ini, alur yang paling natural adalah:
+
+1. Tambahkan dokumen baru ke `docs/`.
+2. Uji chunking dengan ukuran dan strategi berbeda.
+3. Bandingkan hasil retrieval dengan beberapa query.
+4. Tambahkan reranker atau hybrid search untuk meningkatkan kualitas context.
+5. Evaluasi jawaban dengan skenario pertanyaan yang lebih kompleks.
